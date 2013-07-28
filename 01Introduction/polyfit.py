@@ -189,7 +189,7 @@ def plotRmsVsLambda(N):
    plt.show()
 
 if __name__ == "__main__":
-   #plotNoRegVsM(10)
-   #plotNoRegVsReg(10, 3)
-   #plotRmsVsM(20)
+   plotNoRegVsM(10)
+   plotNoRegVsReg(10, 3)
+   plotRmsVsM(20)
    plotRmsVsLambda(10)
