@@ -9,7 +9,7 @@ if __name__ == "__main__":
    N = 10
 
    # Order of the polynomial
-   M = 8
+   M = 9
 
    # Standard deviation of training data points (controls amount of noise)
    Std = 0.1
@@ -24,7 +24,7 @@ if __name__ == "__main__":
    beta = 11.1
 
    # Evenly spaced x values
-   xs = np.linspace(0, 1, 10)
+   xs = np.linspace(0, 1, 100)
 
    # Stores y vertices of the region within one standard deviation of the
    # mean of the predictive distribution. We can reconstruct the region polygon
@@ -37,7 +37,7 @@ if __name__ == "__main__":
 
    phi = lambda x: np.matrix(list(x ** i for i in xrange(M + 1))).T
    for nx in xs:
-      S = (alpha * np.eye(M + 1) + beta * sum(phi(x) for x, t in points) * phi(nx).T).I
+      S = (alpha * np.eye(M + 1) + beta * sum(phi(x) * phi(x).T for x, t in points)).I
       m = (beta * phi(nx).T * S * sum(phi(x) * t for x, t in points)).item(0, 0)
       s = np.sqrt((1.0 / beta + phi(nx).T * S * phi(nx)).item(0, 0))
 
@@ -59,5 +59,6 @@ if __name__ == "__main__":
    # Plot the uncertainty region 
    plt.fill(list(xs) + list(xs[::-1]), regionTop + regionBot[::-1], alpha=.5)
 
+   plt.ylim((-1, 1))
    plt.legend()
    plt.show()
